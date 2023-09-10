@@ -1,21 +1,22 @@
-import React, { useState } from "react";
-import FormInput from "../form-input/FormInput";
-import CustomButton from "../custom-button/CustomButton";
+import React, { useState } from 'react';
+import FormInput from '../form-input/FormInput';
+import CustomButton from '../custom-button/CustomButton';
 
-import "./Signin.css";
+import { signInWithGoogle } from '../../firebase/firebase.utils';
 
-const SignIn = () => {
-  const [login, setLogin] = useState({ email: "", password: "" });
+import './Signin.css';
 
-  const handleSubmit = (e) => {
+const SignIn = ({ isGoogleSignin }) => {
+  const [login, setLogin] = useState({ email: '', password: '' });
+
+  const handleSubmit = e => {
     e.preventDefault();
-    setLogin({ email: "", password: "" });
+    setLogin({ email: '', password: '' });
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { value, name } = e.target;
     setLogin({ ...login, [name]: value });
-    console.log(login);
   };
 
   return (
@@ -39,8 +40,14 @@ const SignIn = () => {
           handleChange={handleChange}
           required
         />
-        <CustomButton type="submit">Sign In</CustomButton>
       </form>
+      <div className="buttons">
+        <CustomButton type="submit">Sign In</CustomButton>
+        <CustomButton onClick={() => signInWithGoogle()} isGoogleSignin>
+          {''}
+          SignIn with Google
+        </CustomButton>
+      </div>
     </div>
   );
 };

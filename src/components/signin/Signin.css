@@ -1,15 +1,14 @@
 .sign-in {
-  width: 30vw;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  width: 380px;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 
 .sign-in .title {
   margin: 10px 0;
 }
-/*# sourceMappingURL=Signin.css.map */
+
+.sign-in .buttons {
+  display: flex;
+  justify-content: space-between;
+}
