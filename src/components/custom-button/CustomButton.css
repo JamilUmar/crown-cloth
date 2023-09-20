@@ -8,24 +8,21 @@
   background-color: #222;
   color: #fff;
   text-transform: uppercase;
-  font-family: 'open san ms';
+  font-family: "open san ms";
   font-weight: bolder;
   border: none;
   cursor: pointer;
 }
-
 .custom-button:hover {
   background-color: #fff;
   color: #222;
   border: 1px solid #222;
 }
-
 .custom-button.google-sign-in {
   background-color: #4285f4;
   color: #fff;
 }
-
 .custom-button.google-sign-in:hover {
   background-color: #357ae8;
   border: none;
-}
+}/*# sourceMappingURL=CustomButton.css.map */

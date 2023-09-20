@@ -5,13 +5,11 @@
   justify-content: space-between;
   margin-bottom: 25px;
 }
-
 .header .logo-container {
   height: 100%;
   width: 70px;
   padding: 25px;
 }
-
 .header .options {
   width: 50%;
   height: 100%;
@@ -19,8 +17,7 @@
   align-items: center;
   justify-content: flex-end;
 }
-
 .header .options .option {
   padding: 10px 15px;
   cursor: pointer;
-}
+}/*# sourceMappingURL=Header.css.map */

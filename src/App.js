@@ -1,51 +1,47 @@
-import React, { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 
-import HomePage from './pages/home/HomePage';
-import ShopPage from './pages/shop/ShopPage';
-import Header from './components/header/Header';
-import SigninSignup from './pages/sign-in-sign-up/SigninSignup';
+import HomePage from "./pages/home/HomePage";
+import ShopPage from "./pages/shop/ShopPage";
+import Header from "./components/header/Header";
+import SigninSignup from "./pages/sign-in-sign-up/SigninSignup";
 
-import { auth } from './firebase/firebase.utils';
+import {
+  auth,
+  createUserProfileDocument,
+  onAuthStateChangedListener,
+} from "./firebase/firebase.utils";
 
-import './App.css';
+import "./App.css";
+import { onAuthStateChanged } from "firebase/auth";
+import { useDispatch } from "react-redux";
 
 // Ss
 
-class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      currentUser: null,
-    };
-  }
-
-  unsubscribeFromAuth = null;
-
-  componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user });
+const App = () => {
+  // const dispatch = useDispatch();
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserProfileDocument(user);
+      }
+      setCurrentUser(user);
+      // dispatch(setCurrentUser(user));
     });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
-
-  render() {
-    return (
-      <div className="app">
-        <Header currentUser={this.state.currentUser} />
-        <Routes>
-          <Route exact path="/" element={<HomePage />} />
-          <Route exact path="/shop" element={<ShopPage />} />
-          <Route exact path="/signin" element={<SigninSignup />} />
-        </Routes>
-        {/* <HomePage /> */}
-      </div>
-    );
-  }
-}
+    return unsubscribe;
+  }, []);
+  return (
+    <div className="app">
+      <Header currentUser={currentUser} />
+      <Routes>
+        <Route exact path="/" element={<HomePage />} />
+        <Route exact path="/shop" element={<ShopPage />} />
+        <Route exact path="/signin" element={<SigninSignup />} />
+      </Routes>
+      {/* <HomePage /> */}
+    </div>
+  );
+};
 
 export default App;

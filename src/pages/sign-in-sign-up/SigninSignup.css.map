@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": "",
-    "sources": [
-        "SigninSignup.scss"
-    ],
-    "names": [],
-    "file": "SigninSignup.css"
-}
+{"version":3,"sources":["SigninSignup.scss","SigninSignup.css"],"names":[],"mappings":"AAAA;EACE,YAAA;EACA,aAAA;EACA,8BAAA;EACA,iBAAA;ACCF","file":"SigninSignup.css"}

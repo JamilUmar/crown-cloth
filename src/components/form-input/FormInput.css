@@ -2,7 +2,6 @@
   position: relative;
   margin: 45px 0;
 }
-
 .group .form-input {
   background: none;
   background-color: #fff;
@@ -16,21 +15,17 @@
   border-bottom: 1px solid grey;
   margin: 25px 0;
 }
-
 .group .form-input:focus {
   outline: none;
 }
-
 .group .form-input:focus ~ .form-input-label {
   top: -14px;
   font-size: 12px;
   color: #222;
 }
-
-.group input[type="password"] {
+.group input[type=password] {
   letter-spacing: 0.3em;
 }
-
 .group .form-input-label {
   color: grey;
   font-size: 16px;
@@ -41,9 +36,8 @@
   top: 10px;
   transition: 300ms ease all;
 }
-
 .group .form-input-label.shrink {
   top: -14px;
   font-size: 12px;
   color: #222;
-}
+}/*# sourceMappingURL=FormInput.css.map */
