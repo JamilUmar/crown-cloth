@@ -8,7 +8,7 @@ import SigninSignup from "./pages/sign-in-sign-up/SigninSignup";
 
 import {
   auth,
-  createUserProfileDocument,
+  createUserDocumentFromAuth,
   onAuthStateChangedListener,
 } from "./firebase/firebase.utils";
 
@@ -24,9 +24,10 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
-        createUserProfileDocument(user);
+        createUserDocumentFromAuth(user);
       }
-      setCurrentUser(user);
+      setCurrentUser({ currentUser: user });
+      console.log(currentUser);
       // dispatch(setCurrentUser(user));
     });
     return unsubscribe;

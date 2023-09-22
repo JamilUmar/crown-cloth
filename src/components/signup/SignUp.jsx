@@ -2,21 +2,25 @@ import React, { useState } from "react";
 import FormInput from "../form-input/FormInput";
 import CustomButton from "../custom-button/CustomButton";
 import {
-  auth,
-  createUserProfileDocument,
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
 } from "./../../firebase/firebase.utils";
 
 import "./SignUp.css";
 
+const defaultUser = {
+  displayName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 const SignUp = () => {
-  const [user, setUser] = useState({
-    displayName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const { displayName, email, password, confirmPassword } = user;
+  const [formUser, setFormUser] = useState(defaultUser);
+  const { displayName, email, password, confirmPassword } = formUser;
 
+  const resetUserFields = () => {
+    setFormUser(defaultUser);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -25,22 +29,24 @@ const SignUp = () => {
     }
 
     try {
-      const { user } = auth.createUserWithEmailAndPassword(email, password);
-      await createUserProfileDocument(user, { displayName });
-      setUser({
-        displayName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      await createUserDocumentFromAuth(user, { displayName });
+      resetUserFields();
     } catch (err) {
-      console.error(err);
+      if (err.code === "auth/email-already-in-use") {
+        alert("Cannot create user, email already in use");
+      } else {
+        console.log("User creation encountered problem", err);
+      }
     }
   };
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
-    setUser({ [name]: value });
+    setFormUser({ ...formUser, [name]: value });
   };
 
   return (
@@ -74,7 +80,7 @@ const SignUp = () => {
         />
         <FormInput
           type="password"
-          name="confirmpassword"
+          name="confirmPassword"
           value={confirmPassword}
           onChange={handleChange}
           label="Confirm Password"
